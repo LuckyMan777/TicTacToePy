@@ -35,7 +35,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.tic_tac_toe">
+  <component name="RunManager" selected="Python.interface">
     <configuration name="graphics" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="TicTacToePy" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -104,8 +104,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.tic_tac_toe" />
         <item itemvalue="Python.interface" />
+        <item itemvalue="Python.tic_tac_toe" />
         <item itemvalue="Python.graphics" />
       </list>
     </recent_temporary>
@@ -124,7 +124,7 @@
       <workItem from="1569506034937" duration="7415000" />
       <workItem from="1569520172146" duration="6877000" />
       <workItem from="1569584724884" duration="1198000" />
-      <workItem from="1569596164623" duration="38857000" />
+      <workItem from="1569596164623" duration="42536000" />
     </task>
     <servers />
   </component>
@@ -366,7 +366,7 @@
     </watches-manager>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/TicTacToePy$interface.coverage" NAME="interface Coverage Results" MODIFIED="1569702005862" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/TicTacToePy$interface.coverage" NAME="interface Coverage Results" MODIFIED="1569713828385" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/TicTacToePy$graphics.coverage" NAME="graphics Coverage Results" MODIFIED="1569650430187" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/TicTacToePy$tic_tac_toe.coverage" NAME="tic_tac_toe Coverage Results" MODIFIED="1569702017249" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>

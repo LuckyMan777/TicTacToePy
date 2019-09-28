@@ -10,11 +10,11 @@ class State(object):
         self.board = board
         self.next_player = next_player
         self.ai_num = ai_num
-        best_moves_corners = [0, 2, 6, 8]
-        best_moves_others = [1, 3, 5, 7]
-        random.shuffle(best_moves_corners)
-        random.shuffle(best_moves_others)
-        self.best_moves = [4] + best_moves_corners + best_moves_others
+        self.moves_corners = [0, 2, 6, 8]
+        self.moves_others = [1, 3, 5, 7]
+        random.shuffle(self.moves_corners)
+        random.shuffle(self.moves_others)
+        self.best_moves = [4] + self.moves_corners + self.moves_others
 
     def check_win(self, num_player: int):
         for i in range(3):
@@ -35,7 +35,7 @@ class State(object):
                 self.board[utils.get_1d_index(0, 2)] == num_player:
             return True, utils.get_1d_index(2, 0), utils.get_1d_index(1, 1), utils.get_1d_index(0, 2)
 
-        return False
+        return False, None, None, None
 
     def check_draw(self):
         if self.check_win(1)[0] or self.check_win(2)[0]:
