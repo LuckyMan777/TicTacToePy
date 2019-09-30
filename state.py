@@ -92,7 +92,7 @@ class State(object):
             childrens.append(self.make_move(indices_2d))
         return zip(childrens, self.get_empty_indices())
 
-    def _get_manhattan_distance_to_move(self, cell: (int, int)) -> int:
+    def _get_manhattan_distance_to_cell(self, cell: (int, int)) -> int:
         """
         :return: Summary manhattan distance from cell to every opponent's cell
         """
@@ -125,13 +125,13 @@ class State(object):
                 block_state = self.make_move(get_2d_indices(ind))
                 return block_state, get_2d_indices(ind)
 
-        # Get the most far corner cell to opponent's cells if ai_num == 1. Else get closest corner cell.
-        reverse = True
-        if self.ai_num == 2:
-            reverse = False
+        # Sort corner cells by decreasing distance to opponent's cells if ai_num == 1.
+        # Else sort by increasing distance.
+        reverse = True if self.ai_num == 1 else False
         self._moves_corners = list(sorted(self._moves_corners,
-                                          key=lambda index: self._get_manhattan_distance_to_move(get_2d_indices(index)),
+                                          key=lambda index: self._get_manhattan_distance_to_cell(get_2d_indices(index)),
                                           reverse=reverse))
+        # Choosing best possible move
         resorted_moves = [move for move in self._best_moves() if move in possible_moves]
         if len(resorted_moves) == 0:
             return self, None
