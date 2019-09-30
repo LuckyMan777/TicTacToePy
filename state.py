@@ -1,5 +1,6 @@
 import random
 from utils import get_1d_index, get_2d_indices, get_other_player
+from tqdm import tqdm
 
 '''
 Board:
@@ -125,6 +126,13 @@ class State(object):
                 block_state = self.make_move(get_2d_indices(ind))
                 return block_state, get_2d_indices(ind)
 
+        # Check tricky opponent's combination (opposite corners used)
+        cnt_xs = len([val for val in self.board if val == 1])
+        if cnt_xs == 2 and self.ai_num == 2 and (
+                self.board[0] == self.board[8] == 1 or self.board[2] == self.board[6] == 1):
+            move = get_2d_indices(random.choice(self._moves_others))
+            return self.make_move(move), move
+
         # Sort corner cells by decreasing distance to opponent's cells if ai_num == 1.
         # Else sort by increasing distance.
         reverse = True if self.ai_num == 1 else False
@@ -143,12 +151,43 @@ class State(object):
         """
         return self._simple_alg()[1]
 
+    def get_random_move(self) -> (int, int):
+        """
+        :return: Random move
+        """
+        possible_moves = self.get_empty_indices()
+        return get_2d_indices(random.choice(possible_moves)) if len(possible_moves) > 0 else (None, None)
+
     def print_board(self):
         for row_num in range(3):
             for col_num in range(3):
                 print(self.board[get_1d_index(row_num, col_num)], end=' ')
             print()
         print()
+
+
+def test_ai(ai_num: int) -> bool:
+    states = []
+    state = State(ai_num=ai_num)
+    random_move = False if ai_num == 1 else True
+
+    while not state.check_terminal_state():
+        if random_move:
+            state = state.make_move(state.get_random_move())
+            states.append(state)
+        else:
+            state = state.make_move(state.get_next_move())
+            states.append(state)
+        random_move = not random_move
+
+    condition = state.check_win(state.ai_num)
+    condition = condition or state.check_draw() if ai_num == 2 else condition
+
+    if not condition:
+        for state in states:
+            state.print_board()
+
+    return condition
 
 
 if __name__ == "__main__":
@@ -158,6 +197,10 @@ if __name__ == "__main__":
 
     while not s.check_terminal_state():
         s = s.make_move(s.get_next_move())
-        s.print_board()
+        # s.print_board()
 
     print("Check draw: {}".format(s.check_draw()))
+
+    for _ in tqdm(range(10000)):
+        if not test_ai(2):
+            break

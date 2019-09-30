@@ -61,7 +61,7 @@ class Interface(object):
         self._init_window()
         self._init_cells()
         self._init_buttons()
-        self.end_game = False
+        self.end_game = True
 
     def _clear_cells(self):
         """
