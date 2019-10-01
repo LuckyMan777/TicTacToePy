@@ -91,6 +91,7 @@ class State(object):
         for ind in self.get_empty_indices():
             indices_2d = get_2d_indices(ind)
             childrens.append(self.make_move(indices_2d))
+        # random.shuffle(childrens)
         return zip(childrens, self.get_empty_indices())
 
     def _get_manhattan_distance_to_cell(self, cell: (int, int)) -> int:
@@ -149,6 +150,7 @@ class State(object):
         """
         :return: Best possible move
         """
+        # return self._minimax_alg()[1]
         return self._simple_alg()[1]
 
     def get_random_move(self) -> (int, int):
@@ -157,6 +159,31 @@ class State(object):
         """
         possible_moves = self.get_empty_indices()
         return get_2d_indices(random.choice(possible_moves)) if len(possible_moves) > 0 else (None, None)
+
+    def _get_heuristic(self) -> int:
+        if not self.check_terminal_state():
+            return 0
+        if self.check_win(get_other_player(self.next_player)):
+            return 30
+        if self.check_win(self.next_player):
+            return -30
+        return 15
+
+    def _minimax_alg(self, depth: int = 9):
+        if depth == 0 or self.check_terminal_state():
+            return self._get_heuristic(), (None, None)  # - (10 - depth), (None, None)
+        best_score = 100
+        best_move = (None, None)
+        for children, ind in self._get_childrens():
+            if depth == 9:
+                print(ind, end=' ')
+                print()
+            children_score, _ = children._minimax_alg(depth - 1)
+            children_score *= -1
+            if children_score < best_score:
+                best_score = children_score
+                best_move = get_2d_indices(ind)
+        return best_score, best_move
 
     def print_board(self):
         for row_num in range(3):
@@ -192,15 +219,16 @@ def test_ai(ai_num: int) -> bool:
 
 if __name__ == "__main__":
     s = State(next_player=1)
-    s = s.make_move((1, 1)).make_move((0, 1))
+    # s = s.make_move((0, 0)).make_move((0, 1))
     s.print_board()
 
     while not s.check_terminal_state():
         s = s.make_move(s.get_next_move())
-        # s.print_board()
+        s.print_board()
 
     print("Check draw: {}".format(s.check_draw()))
-
+    '''
     for _ in tqdm(range(10000)):
-        if not test_ai(2):
+       if not test_ai(2):
             break
+    '''
